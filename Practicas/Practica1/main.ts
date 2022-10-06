@@ -2,8 +2,7 @@ export function add(a: number, b: number): number {
     return a + b;
   }
   
-  const url=new URL(import.meta.url);
-  if()
+  
 
 
 
@@ -24,3 +23,6 @@ export function add(a: number, b: number): number {
     resolve(specifier: string):string;
 }
 
+const url=new URL(import.meta.url);
+  if()
+*/
