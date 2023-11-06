@@ -1,6 +1,6 @@
-# Arquitectura-y-Programación-de-Sistemas-en-Internet
+# Desarrollo Back
 
 
-Repositorio de la Asignatura de Arquitectura-y-Programaci-n-de-Sistemas-en-Internet en el curso 2022/23
+Repositorio de Back en typescript usando deno.
+Creando Apis en API REST y GRAPHQL
 
-Practicas realizadas por David Gregorio Muñoz y Augusto Messina
