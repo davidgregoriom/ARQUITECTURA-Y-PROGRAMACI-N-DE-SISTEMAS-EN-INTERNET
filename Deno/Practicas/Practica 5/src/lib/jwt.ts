@@ -14,10 +14,7 @@ const generateKey = async (secretKey: string): Promise<CryptoKey> => {
   );
 };
 
-export const createJWT = async (
-  payload: User,
-  secretKey: string
-): Promise<string> => {
+export const createJWT = async ( payload: User,secretKey: string): Promise<string> => {
   const header: Header = {
     alg: "HS256",
   };

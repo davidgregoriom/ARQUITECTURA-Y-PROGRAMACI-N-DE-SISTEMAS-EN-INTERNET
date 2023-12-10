@@ -55,7 +55,7 @@ export const Mutation = {
         day: day,
         hour: hour,
       });
-      
+
       if (!slot) {
         throw new Error ("Slot not found.");
       }
@@ -71,8 +71,7 @@ export const Mutation = {
       throw new Error (error);
     }
   },
-  bookSlot: async(_:unknown, params:{year: number, month: number,
-    day: number, hour: number, dni: string}): Promise<Slot> =>{
+  bookSlot: async(_:unknown, params:{year: number, month: number, day: number, hour: number, dni: string}): Promise<Slot> =>{
     try{
       const { month, year, day, hour, dni} = params;
 
