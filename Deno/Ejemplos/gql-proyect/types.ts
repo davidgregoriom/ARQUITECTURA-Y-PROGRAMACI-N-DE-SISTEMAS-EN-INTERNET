@@ -16,3 +16,12 @@ export type Person = {
   age: number;
   library: Library;
 };
+
+export type Event = {
+  id: string;
+  title: string;
+  description: string;
+  date: Date;
+  startHour: number;
+  endHour: number;
+};

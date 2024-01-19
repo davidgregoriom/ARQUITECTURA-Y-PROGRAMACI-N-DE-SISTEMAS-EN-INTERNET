@@ -28,6 +28,7 @@ export const Query = {
     args: { id: string }
   ): Promise<PersonModelType> => {
     const person = await PersonModel.findById(args.id);
+
     if (!person) {
       throw new GraphQLError(`No person found with id ${args.id}`, {
         extensions: { code: "NOT_FOUND" },

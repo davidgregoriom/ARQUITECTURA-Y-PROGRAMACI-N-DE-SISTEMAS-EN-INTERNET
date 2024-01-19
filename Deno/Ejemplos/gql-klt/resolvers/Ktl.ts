@@ -2,7 +2,7 @@ import { GraphQLError } from "graphql";
 import { PersonModel, PersonModelType } from "../db/person.ts";
 import { KLTModelType,KLTModel } from "../db/klt.ts";
 
-export const Pet = {
+export const Klt = {
   owner: async (parent: KLTModelType): Promise<PersonModelType> => {
     const person = await PersonModel.findById(parent.owner).exec();
     if (!person) {

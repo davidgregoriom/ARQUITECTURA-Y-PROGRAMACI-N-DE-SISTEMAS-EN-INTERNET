@@ -8,6 +8,8 @@ import { typeDefs } from "./gql/schema.ts";
 import montoose from "mongoose";
 
 const MONGO_URL = Deno.env.get("MONGO_URL");
+
+console.log("MONGO_URL:", Deno.env.get("prueva1"));
 if (!MONGO_URL) {
   throw new Error("Please provide a MongoDB connection string");
 }

@@ -1,21 +1,21 @@
 import { GraphQLError } from "graphql";
-import { PetModel, PetModelType } from "../db/pet.ts";
 import { PersonModel, PersonModelType } from "../db/person.ts";
+import { KLTModelType,KLTModel } from "../db/klt.ts";
 
 export const Query = {
-  pets: async (): Promise<PetModelType[]> => {
-    const pets = await PetModel.find().exec();
-    return pets;
+  klts: async (): Promise<KLTModelType[]> => {
+    const klts = await KLTModel.find().exec();
+    return klts;
   },
 
-  pet: async (_: unknown, args: { id: string }): Promise<PetModelType> => {
-    const pet = await PetModel.findById(args.id);
-    if (!pet) {
-      throw new GraphQLError(`No pet found with id ${args.id}`, {
+  KLT: async (_: unknown, args: { id: string }): Promise<KLTModelType> => {
+    const klt = await KLTModel.findById(args.id);
+    if (!klt) {
+      throw new GraphQLError(`No klt found with id ${args.id}`, {
         extensions: { code: "NOT_FOUND" },
       });
     }
-    return pet;
+    return klt;
   },
 
   persons: async (): Promise<PersonModelType[]> => {

@@ -2,6 +2,7 @@ import { GraphQLError } from "graphql";
 import { PetModel, PetModelType } from "../db/pet.ts";
 import { PersonModel, PersonModelType } from "../db/person.ts";
 import mongoose from "mongoose";
+import { EventModel, EventModelType } from "../db/event.ts";
 
 export const Mutation = {
   addPet: async (
@@ -86,4 +87,84 @@ export const Mutation = {
     }
     return person;
   },
+  addEvent: async(
+    _:unknown,
+    args: {title:string,description:string,date:Date,startHour:number,endHour:number  }
+  ):Promise<EventModelType>=>{
+    const event={
+      title:args.title,
+      description:args.description,
+      date:args.date,
+      startHour:args.startHour,
+      endHour:args.endHour
+    }
+    const exits = await EventModel.findOne(event);
+    if(exits){
+      throw new GraphQLError(`Event already exists`, {
+        extensions: { code: "ALREADY_EXISTS" },
+      });
+    }
+    const eventsarround = await EventModel.findOne({
+      date: new Date(event.date),
+      $or:[
+        { startHour: { $gte: event.startHour, $lte: event.endHour } },
+        { endHour: { $gte: event.startHour, $lte: event.endHour } },
+      ],
+    })
+    if(eventsarround){
+      throw new GraphQLError(`Events arround already exists`, {
+        extensions: { code: "ALREADY_EXISTS" },
+      });
+    }
+    const newEvent= await EventModel.create(event);
+    return newEvent;
+  },
+  deleteEvent: async(
+    _:unknown,
+    args: {id:string}
+  ):Promise<EventModelType>=>{
+    const event = await EventModel.findByIdAndDelete(args.id);
+    if(!event){
+      throw new GraphQLError(`No person found with id ${args.id}`, {
+        extensions: { code: "NOT_FOUND" },
+      });
+    }
+    return event;
+  },
+  updateEvent: async(
+    _:unknown,
+    args:{id:string,title:string,description:string,date:Date,startHour:number,endHour:number}
+  ):Promise <EventModelType>=>{
+    const event={
+      title:args.title,
+      description:args.description,
+      date:args.date,
+      startHour:args.startHour,
+      endHour:args.endHour
+    }
+    const eventsarround = await EventModel.findOne({
+      date: new Date(event.date),
+      $or:[
+        { startHour: { $gte: event.startHour, $lte: event.endHour } },
+        { endHour: { $gte: event.startHour, $lte: event.endHour } },
+      ],
+    })
+    if(eventsarround){
+      throw new GraphQLError(`Events arround already exists`, {
+        extensions: { code: "ALREADY_EXISTS" },
+      });
+    }
+    const updatevent = await EventModel.findByIdAndUpdate(
+      args.id,
+      {event},
+      {new:true,runValidators:true}
+    );
+    if(!updatevent){
+      throw new GraphQLError(`No event found with id ${args.id}`, {
+        extensions: { code: "NOT_FOUND" },
+      });
+    }
+    return updatevent;
+  }
+
 };

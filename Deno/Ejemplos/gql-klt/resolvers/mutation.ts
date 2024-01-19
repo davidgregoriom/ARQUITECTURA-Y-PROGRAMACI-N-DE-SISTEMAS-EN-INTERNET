@@ -1,48 +1,51 @@
 import { GraphQLError } from "graphql";
-import { PetModel, PetModelType } from "../db/pet.ts";
+import { KLTModel, KLTModelType } from "../db/klt.ts";
 import { PersonModel, PersonModelType } from "../db/person.ts";
 import mongoose from "mongoose";
 
 export const Mutation = {
    addKLT: async (
     _: unknown,
-    args: { name: string; breed: string; owner: string }
-  ): Promise<PetModelType> => {
-    const pet = {
-      name: args.name,
-      breed: args.breed,
+    args: { reference: string; mould: string; type: number; parts: number; date: Date; owner: string }
+  ): Promise<KLTModelType> => {
+    const KLT = {
+      reference: args.reference,
+      mould: args.mould,
+      type: args.type,
+      parts: args.parts,
+      date: args.date,
       owner: new mongoose.Types.ObjectId(args.owner),
     };
-    const newPet = await PetModel.create(pet);
-    return newPet;
+    const newKLT = await KLTModel.create(KLT);
+    return newKLT;
   },
-  deletePet: async (
+  deleteKLT: async (
     _: unknown,
     args: { id: string }
-  ): Promise<PetModelType> => {
-    const pet = await PetModel.findByIdAndDelete(args.id);
-    if (!pet) {
-      throw new GraphQLError(`No pet found with id ${args.id}`, {
+  ): Promise<KLTModelType> => {
+    const KLT = await KLTModel.findByIdAndDelete(args.id);
+    if (!KLT) {
+      throw new GraphQLError(`No KLT found with id ${args.id}`, {
         extensions: { code: "NOT_FOUND" },
       });
     }
-    return pet;
+    return KLT;
   },
-  updatePet: async (
+  updateKLT: async (
     _: unknown,
-    args: { id: string; name: string; breed: string; owner: string }
-  ): Promise<PetModelType> => {
-    const pet = await PetModel.findByIdAndUpdate(
+    args: { id: string  ;reference: string; mould: string; type: number; parts: number; date: Date; owner: string }
+  ): Promise<KLTModelType> => {
+    const KLT = await KLTModel.findByIdAndUpdate(
       args.id,
-      { name: args.name, breed: args.breed, owner: args.owner },
+      { reference: args.reference, mould: args.mould, type:args.type,parts:args.parts,date:args.date,owner: args.owner },
       { new: true, runValidators: true }
     );
-    if (!pet) {
-      throw new GraphQLError(`No pet found with id ${args.id}`, {
+    if (!KLT) {
+      throw new GraphQLError(`No KLT found with id ${args.id}`, {
         extensions: { code: "NOT_FOUND" },
       });
     }
-    return pet;
+    return KLT;
   },
 
   addPerson: async (

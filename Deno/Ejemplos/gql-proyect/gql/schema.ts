@@ -1,5 +1,14 @@
 // The GraphQL schema
 export const typeDefs = `#graphql
+  type Event {
+    id: ID!,
+    title: String!,
+    description: String!,
+    date: Date!,
+    startHour: Int!,
+    endHour: Int!
+  }
+
   type Book {
     id: ID!
     name: String!
@@ -23,6 +32,7 @@ export const typeDefs = `#graphql
     book(id: ID!): Book!
     persons: [Person!]!
     person(id: ID!): Person!
+    events: [Event!]!
   }
   type Mutation {
     addBook(name: String!, state: String!, owner:ID!): Book!

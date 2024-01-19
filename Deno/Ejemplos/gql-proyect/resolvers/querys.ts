@@ -1,6 +1,7 @@
 import { GraphQLError } from "graphql";
 import { PetModel, PetModelType } from "../db/pet.ts";
 import { PersonModel, PersonModelType } from "../db/person.ts";
+import { EventModel, EventModelType } from "../db/event.ts";
 
 export const Query = {
   pets: async (): Promise<PetModelType[]> => {
@@ -35,4 +36,9 @@ export const Query = {
     }
     return person;
   },
+  events: async():Promise<EventModelType[]>=>{
+    const events = await EventModel.find().exec();
+    return events;
+  }
+
 };
