@@ -1,5 +1,4 @@
 import { GraphQLError } from "graphql";
-import { PetModel, PetModelType } from "../db/pet.ts";
 import { PersonModel, PersonModelType } from "../db/person.ts";
 import mongoose from "mongoose";
 import { EventModel, EventModelType } from "../db/event.ts";

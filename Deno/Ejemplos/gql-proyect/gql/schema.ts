@@ -4,7 +4,7 @@ export const typeDefs = `#graphql
     id: ID!,
     title: String!,
     description: String!,
-    date: Date!,
+    date: String!,
     startHour: Int!,
     endHour: Int!
   }
@@ -41,8 +41,8 @@ export const typeDefs = `#graphql
     addPerson(name: String!, age: Int!): Person!
     deletePerson(id: ID!): Person!
     updatePerson(id: ID!, name: String, age: Int): Person!
-    addEvent(title: String!, description: String!, date: Date!, startHour: Int!, endHour: Int!): Event!
+    addEvent(title: String!, description: String!, date: String!, startHour: Int!, endHour: Int!): Event!
     deleteEvent(id: ID!): Event!
-    updateEvent(id: ID!, title: String, description: String, date: Date, startHour: Int, endHour: Int): Event!
+    updateEvent(id: ID!, title: String, description: String, date: String, startHour: Int, endHour: Int): Event!
   }
 `;

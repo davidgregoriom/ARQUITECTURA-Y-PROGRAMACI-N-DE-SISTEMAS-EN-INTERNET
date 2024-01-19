@@ -1,9 +1,7 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
-import { Query } from "./resolvers/query.ts";
-import { Mutation } from "./resolvers/mutation.ts";
-import { Person } from "./resolvers/Person.ts";
-import { Pet } from "./resolvers/Pet.ts";
+import { Query } from "./resolvers/querys.ts";
+import { Mutation } from "./resolvers/mutations.ts";
 import { typeDefs } from "./gql/schema.ts";
 import montoose from "mongoose";
 
@@ -22,8 +20,6 @@ const server = new ApolloServer({
   resolvers: {
     Query,
     Mutation,
-    Person,
-    Pet,
   },
 });
 
