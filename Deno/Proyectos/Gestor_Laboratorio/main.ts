@@ -1,8 +1,19 @@
-export function add(a: number, b: number): number {
-  return a + b;
-}
+import express from "express";
+import { db } from "./db/mysql.ts";
+import { User,Booking,Classroom } from "./models.ts";
+import { getUsers } from "./resolvers.ts/getUsers.ts";
 
-// Learn more at https://deno.land/manual/examples/module_metadata#concepts
-if (import.meta.main) {
-  console.log("Add 2 + 3 =", add(2, 3));
-}
+
+db.link([User,Booking,Classroom]);
+db.sync();
+
+const app = express();
+app.use(express.json());
+
+app
+    .get("/subjects", getUsers)
+
+
+app.listen(3000, () => {
+    console.log("Server listening on port 3000");
+  });
