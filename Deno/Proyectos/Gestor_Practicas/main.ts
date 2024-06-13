@@ -1,10 +1,11 @@
 import express from "npm:express@4.18.2";
 import { db } from "./db/mysql.ts";
 import { User,Booking,Classroom } from "./models.ts";
-import { getUsers } from "./controllers/getUsers.ts";
-import { postUserLogin } from "./controllers/postUserLogin.ts";
-import { postUserRegister } from "./controllers/postUserRegister.ts";
-import { deleteUser } from "./controllers/deleteUser.ts";
+import { getUsers } from "./resolvers/user/getUsers.ts";
+import { postUserLogin } from "./resolvers/user/postUserLogin.ts";
+import { postUserRegister } from "./resolvers/user/postUserRegister.ts";
+import { deleteUser } from "./resolvers/user/deleteUser.ts";
+import { putUserPassword } from "./resolvers/user/putUserPassword.ts";
 
 
 db.link([User,Booking,Classroom]);
@@ -23,6 +24,7 @@ app
   .use("/postLogin", postUserLogin)
   .use("/postRegister", postUserRegister)
   .use("/deleteUser", deleteUser)
+  .use("/putPassword", putUserPassword);
 
 
 

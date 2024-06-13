@@ -11,7 +11,8 @@ export class User extends Model {
         id: { type: DataTypes.INTEGER,primaryKey: true, autoIncrement: true },
         full_name: DataTypes.STRING,
         email: DataTypes.STRING,
-        password: DataTypes.STRING
+        password: DataTypes.STRING,
+        administrator: DataTypes.BOOLEAN
     };
     static Booking () {
         return this.hasMany(Booking);

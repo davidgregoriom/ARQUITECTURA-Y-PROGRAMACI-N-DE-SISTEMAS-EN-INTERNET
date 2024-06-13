@@ -1,7 +1,7 @@
 // @deno-types="npm:@types/express@4.17.15"
 import {  Request, Response} from "npm:express@4.18.2";
-import { User } from "../models.ts";
-import { UserType } from "../types.ts";
+import { User } from "../../models.ts";
+import { UserType } from "../../types.ts";
 
 export const postUserLogin = async (req: Request<{}, {}, {full_name: string,email: string,password: string}>, res: Response<UserType | { error: unknown }>) => {
     try {
@@ -13,7 +13,7 @@ export const postUserLogin = async (req: Request<{}, {}, {full_name: string,emai
         }
 
         const userDB = await User.where({ email:email, full_name:full_name, password:password }).get();
-        if (userDB) {
+        if (userDB===undefined || Object.keys(userDB).length>0) {
             const user:UserType = userDB as UserType;
             res.status(200).json({ user }).send();
         } else {
