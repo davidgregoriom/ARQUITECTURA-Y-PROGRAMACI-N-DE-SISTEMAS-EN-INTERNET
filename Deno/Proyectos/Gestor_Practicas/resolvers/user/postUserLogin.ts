@@ -13,11 +13,13 @@ export const postUserLogin = async (req: Request<{}, {}, {email: string,password
         }
 
         const userDB = await User.where({ email:email, password:password }).get();
-        if (userDB===undefined || Object.keys(userDB).length>0) {
-            const user:UserType = userDB as UserType;
+        console.log(Object.keys(userDB));
+        if (!userDB===undefined || Object.keys(userDB).length>0) {
+            const user:UserType = userDB.map((user:UserType) => ({ id: user.id, full_name: user.full_name, email: user.email, password: user.password, administrator: user.administrator }))[0];
+            console.log(user);
             res.status(200).json({ user }).send();
         } else {
-            res.status(201).json({ message: "User does not exist" }).send();
+            res.status(404).json({ message: "User does not exist" }).send();
         }
         // TODO: Send verification email using smtp module
     } catch (error) {
