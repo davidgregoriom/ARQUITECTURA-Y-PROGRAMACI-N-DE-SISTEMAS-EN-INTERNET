@@ -5,6 +5,8 @@ import { UserType } from "../../types.ts";
 import { isValidPassword } from "../../controllers/ValidPassword.ts";
 import { isValidEmail } from "../../controllers/ValidEmail.ts";
 
+//Implementar https://deno.land/x/bcrypt@v0.4.1
+
 export const postUserRegister = async (req: Request<{}, {}, {full_name: string,email: string,password: string}>, res: Response<UserType | { error: unknown }>) => {
     try {
         const {full_name,email,password} = req.body;  // Parse JSON body
@@ -31,7 +33,7 @@ export const postUserRegister = async (req: Request<{}, {}, {full_name: string,e
                 res.status(200).json({ message: "create it" }).send();
             }
         }
-        // TODO: Send verification email using smtp module
+
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
