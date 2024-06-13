@@ -6,7 +6,7 @@ import { postUserLogin } from "./resolvers/user/postUserLogin.ts";
 import { postUserRegister } from "./resolvers/user/postUserRegister.ts";
 import { deleteUser } from "./resolvers/user/deleteUser.ts";
 import { putUserPassword } from "./resolvers/user/putUserPassword.ts";
-
+import { putUserAdministrator } from "./resolvers/user/putUserAdministrator.ts";
 
 db.link([User,Booking,Classroom]);
 db.sync();
@@ -24,7 +24,8 @@ app
   .use("/postLogin", postUserLogin)
   .use("/postRegister", postUserRegister)
   .use("/deleteUser", deleteUser)
-  .use("/putPassword", putUserPassword);
+  .use("/putPassword", putUserPassword)
+  .use("/putAdministrator", putUserAdministrator);
 
 
 

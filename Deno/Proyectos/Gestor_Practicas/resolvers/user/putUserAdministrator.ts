@@ -1,9 +1,8 @@
 import { Request, Response } from "npm:express@4.18.2";
 import { User } from "../../models.ts";
 import { UserType } from "../../types.ts";
-import { isValidPassword } from "../../controllers/ValidPassword.ts";
 
-export const putUserPassword = async (req: Request<{}, {}, {email: string}>, res: Response<UserType | { error: unknown }>) => {
+export const putUserAdministrator = async (req: Request<{}, {}, {email: string}>, res: Response<UserType | { error: unknown }>) => {
     try {
         const {email} = req.body;
 
@@ -15,7 +14,7 @@ export const putUserPassword = async (req: Request<{}, {}, {email: string}>, res
         const userDB = await User.where({email:email }).get();
 
         if (userDB===undefined || Object.keys(userDB).length>0) {
-            await User.find((userDB as UserType).id).update({ administrator: true});
+            await User.find(userDB.map((user:UserType)=>user.id)).update({ administrator: true});
             res.status(200).json({ message: "User does exist" }).send();
         } else {
             res.status(201).json({ message: "User doesn't exist" }).send();
