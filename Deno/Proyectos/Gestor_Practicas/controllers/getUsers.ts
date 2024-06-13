@@ -1,32 +1,33 @@
 // @deno-types="npm:@types/express@4.17.15"
-import { Context } from 'https://deno.land/x/oak/mod.ts';
+import {  Request, Response} from "npm:express@4.18.2";
 import { User } from "../models.ts";
 import { UserType } from "../types.ts";
 
-export const getUsers = async (ctx:Context,) => {
+export const getUsers = async (req: Request<{}, {}, User>, res: Response<UserType | { error: unknown }>) => {
     try {
-        const {name, email, password, role} = req.body;
-        if(!name || !email || !password || !role){
-            res.status(400).json({error: "Missing fields"});
+        const response = req.body;  // Parse JSON body
+        console.log(response);
+        /*
+        if (!full_name || !email || !password) {
+            res.status(400).json({ error: "Missing fields" }).send();
             return;
         }
-        const userDB = User.where("email", email);
 
-        if(userDB){
-            res.status(200).json(userDB).send("El usuario ya existe");
-        }else{
+        const userDB = await User.where("email", email).first();
+        if (userDB) {
+            res.status(200).json({ message: "User already exists", user: userDB }).send();
+        } else {
             const user = new User();
-            user.name = name;
+            user.full_name = full_name;
             user.email = email;
             user.password = password;
-            user.role = role
             await user.save();
+
             res.status(201).json(user).send();
         }
-
-        //enviar correo de verificación https://deno.land/x/smtp@v0.7.0
-
+        */
+        // TODO: Send verification email using smtp module
     } catch (error) {
-      res.status(500).send(error);
+        res.status(500).json({ error: error.message });
     }
-  };
+}
