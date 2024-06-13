@@ -1,13 +1,12 @@
-import { Application } from 'oak';
+import { Application } from 'https://deno.land/x/oak/mod.ts';
 import { db } from "./db/mysql.ts";
 import { User,Booking,Classroom } from "./models.ts";
-import { getUsers } from "./resolvers.ts/getUsers.ts";
+
 import  router from "./routes/routes.ts";
 
 
 db.link([User,Booking,Classroom]);
 db.sync();
-
 const app = new Application();
 
 app.use(router.routes());

@@ -1,12 +1,9 @@
 // @deno-types="npm:@types/express@4.17.15"
-import { Request, Response } from "express";
+import { Context } from 'oak';
 import { User } from "../models.ts";
 import { UserType } from "../types.ts";
 
-export const getUsers = async (
-    req: Request,
-    res: Response<UserType| { error: unknown }>
-  ) => {
+export const getUsers = async (ctx:Context,) => {
     try {
         const {name, email, password, role} = req.body;
         if(!name || !email || !password || !role){
