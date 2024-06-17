@@ -4,7 +4,7 @@ import { Model,DataTypes } from 'https://deno.land/x/denodb@v1.3.0/mod.ts';
 
 
 export class User extends Model {
-    static table = 'users';
+    static table = 'td_users';
     static timestamps = true;
 
     static fields = {
@@ -19,7 +19,7 @@ export class User extends Model {
     }
 }
 export class Classroom extends Model{
-    static table = 'classrooms';
+    static table = 'td_classrooms';
     static timestamps = true;
 
     static fields = {
@@ -37,7 +37,7 @@ export class Classroom extends Model{
 
 
 export class Booking extends Model{
-    static table = 'bookings';
+    static table = 'th_bookings';
     static timestamps = true;
 
     static fields = {
