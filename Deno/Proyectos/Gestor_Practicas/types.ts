@@ -17,9 +17,9 @@ export type ClassroomType = {
 export type BookingType = {
     id: number;
     asignaturas: string;
-    hora_inicio: string;
-    hora_fin: string;
-    fecha: string;
+    hora_inicio: Date;
+    hora_fin: Date;
+    fecha: Date;
     numnero_alumnos: number;
     id_usuario: number;
     id_aula: number;
