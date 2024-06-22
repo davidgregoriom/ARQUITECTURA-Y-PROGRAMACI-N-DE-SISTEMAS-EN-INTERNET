@@ -3,11 +3,11 @@ import { User } from "../../models.ts";
 import { UserType } from "../../types.ts";
 
 //Cambiar para poder actualizar el registro de la practica
-export const putBooking = async (req: Request<{}, {}, {email: string}>, res: Response<UserType | { error: unknown }>) => {
+export const putBooking = async (req: Request<{}, {}, {asignatura:string,hora_inicio:Date,hora_fin:Date,fecha:Date,numero_alumnos:number,id_aula:string,id_user:number}>, res: Response<UserType | { error: unknown }>) => {
     try {
-        const {email} = req.body;
+        const {asignatura,hora_inicio,hora_fin,fecha,numero_alumnos,id_aula,id_user} = req.body;
 
-        if (!email) {
+        if (!asignatura) {
             res.status(400).json({ error: "Missing field" }).send();
             return;
         }
