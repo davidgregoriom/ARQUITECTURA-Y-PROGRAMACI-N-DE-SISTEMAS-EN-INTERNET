@@ -12,7 +12,7 @@ export const putBooking = async (req: Request<{}, {}, {asignatura:string,hora_in
             return;
         }
 
-        const userDB = await User.where({email:email }).get();
+        const userDB = await User.where({asignaturas:asignatura }).update({hora_inicio:hora_inicio,hora_fin:hora_fin,fecha:fecha,numnero_alumnos:numero_alumnos,id_usuario:id_user,id_aula:id_aula});
 
         if (userDB===undefined || Object.keys(userDB).length>0) {
             await User.find(userDB.map((user:UserType)=>user.id)).update({ administrator: true});

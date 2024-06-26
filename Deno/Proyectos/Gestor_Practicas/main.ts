@@ -7,6 +7,15 @@ import { postUserRegister } from "./resolvers/user/postUserRegister.ts";
 import { deleteUser } from "./resolvers/user/deleteUser.ts";
 import { putUserPassword } from "./resolvers/user/putUserPassword.ts";
 import { putUserAdministrator } from "./resolvers/user/putUserAdministrator.ts";
+import { putBooking } from "./resolvers/bookings/putBooking.ts";
+import { deleteBookingID } from "./resolvers/bookings/deleteBookingID.ts";
+import { getBookings } from "./resolvers/bookings/getBookings.ts";
+import { postBooking } from "./resolvers/bookings/postBooking.ts";
+import { deleteClassroomID } from "./resolvers/classrooms/deleteClassroomID.ts";
+import { getClassrooms } from "./resolvers/classrooms/getClassrooms.ts";
+import { postClassroom } from "./resolvers/classrooms/postClassroom.ts";
+import { getClassroom } from "./resolvers/classrooms/getClassroom.ts";
+
 
 db.link([User,Booking,Classroom]);
 db.sync();
@@ -17,7 +26,6 @@ if(db.ping()){
 const app = express();
 // Body parsing middleware
 app.use(express.json());
-app.use(express.json({ limit: '100mb' }));
 // Your route handlers
 app
   .use("/getUsers", getUsers)
@@ -25,13 +33,15 @@ app
   .use("/postRegister", postUserRegister)
   .use("/deleteUser", deleteUser)
   .use("/putPassword", putUserPassword)
-  .use("/putAdministrator", putUserAdministrator);
-
-
-
-
-
-
+  .use("/putAdministrator", putUserAdministrator)
+  .use("/putBooking", putBooking)
+  .use("/deleteBooking", deleteBookingID)
+  .use("/getBookings", getBookings)
+  .use("/postBooking", postBooking)
+  .use("/getClassroom", getClassroom)
+  .use("/deleteClassroom", deleteClassroomID)
+  .use("/getClassrooms", getClassrooms)
+  .use("/postClassroom", postClassroom);
 
 app.listen(3000, () => {
   console.log("Server listening on port 3000");
