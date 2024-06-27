@@ -3,16 +3,16 @@ import { User } from "../../models.ts";
 import { UserType } from "../../types.ts";
 
 //Cambiar para poder actualizar el registro de la practica
-export const putBooking = async (req: Request<{}, {}, {asignatura:string,hora_inicio:Date,hora_fin:Date,fecha:Date,numero_alumnos:number,id_aula:string,id_user:number}>, res: Response<UserType | { error: unknown }>) => {
+export const putBooking = async (req: Request<{}, {}, {name:string,hora_inicio:Date,hora_fin:Date,fecha:Date,numero_alumnos:number,id_aula:string,id_user:number,id_subject:number}>, res: Response<UserType | { error: unknown }>) => {
     try {
-        const {asignatura,hora_inicio,hora_fin,fecha,numero_alumnos,id_aula,id_user} = req.body;
+        const {name,hora_inicio,hora_fin,fecha,numero_alumnos,id_aula,id_user,id_subject} = req.body;
 
-        if (!asignatura) {
+        if (!name) {
             res.status(400).json({ error: "Missing field" }).send();
             return;
         }
 
-        const userDB = await User.where({asignaturas:asignatura }).update({hora_inicio:hora_inicio,hora_fin:hora_fin,fecha:fecha,numnero_alumnos:numero_alumnos,id_usuario:id_user,id_aula:id_aula});
+        const userDB = await User.where({asignaturas:name }).update({hora_inicio:hora_inicio,hora_fin:hora_fin,fecha:fecha,numnero_alumnos:numero_alumnos,id_usuario:id_user,id_aula:id_aula,id_subject:id_subject});
 
         if (userDB===undefined || Object.keys(userDB).length>0) {
             await User.find(userDB.map((user:UserType)=>user.id)).update({ administrator: true});

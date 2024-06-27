@@ -35,6 +35,19 @@ export class Classroom extends Model{
     }
 }
 
+export class Subject extends Model{
+    static table = 'td_subjects';
+    static timestamps = true;
+
+    static fields = {
+        id: { type: DataTypes.INTEGER,primaryKey: true, autoIncrement: true },
+        subject: DataTypes.STRING,
+
+    };
+    static Booking (){
+        return this.hasMany(Booking);
+    }
+}
 
 export class Booking extends Model{
     static table = 'th_bookings';
@@ -42,13 +55,14 @@ export class Booking extends Model{
 
     static fields = {
         id: { type: DataTypes.INTEGER,primaryKey: true, autoIncrement: true },
-        asignaturas: DataTypes.STRING,
+        name: DataTypes.STRING,
         hora_inicio: DataTypes.TIME,
         hora_fin: DataTypes.TIME,
         fecha: DataTypes.DATE,
         numnero_alumnos: DataTypes.INTEGER,
         id_usuario: DataTypes.INTEGER,
-        id_aula: DataTypes.INTEGER
+        id_aula: DataTypes.INTEGER,
+        id_subject: DataTypes.INTEGER
     };
     static User (){
         return this.hasOne(User);
@@ -56,4 +70,9 @@ export class Booking extends Model{
     static Classroom (){
         return this.hasOne(Classroom);
     }
+    static Subject (){
+        return this.hasOne(Subject);
+    }
 }
+
+

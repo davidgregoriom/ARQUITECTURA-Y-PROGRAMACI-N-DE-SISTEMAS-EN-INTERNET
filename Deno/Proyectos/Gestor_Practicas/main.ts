@@ -15,7 +15,11 @@ import { deleteClassroomID } from "./resolvers/classrooms/deleteClassroomID.ts";
 import { getClassrooms } from "./resolvers/classrooms/getClassrooms.ts";
 import { postClassroom } from "./resolvers/classrooms/postClassroom.ts";
 import { getClassroom } from "./resolvers/classrooms/getClassroom.ts";
-
+import { getSubject } from "./resolvers/subjects/getSubject.ts";
+import { getSubjects } from "./resolvers/subjects/getSubjects.ts";
+import https from "https";
+import fs from "fs";
+import path from "path";
 
 db.link([User,Booking,Classroom]);
 db.sync();
@@ -41,7 +45,9 @@ app
   .use("/getClassroom", getClassroom)
   .use("/deleteClassroom", deleteClassroomID)
   .use("/getClassrooms", getClassrooms)
-  .use("/postClassroom", postClassroom);
+  .use("/postClassroom", postClassroom)
+  .use("/getSubject", getSubject)
+  .use("/getSubjects", getSubjects);
 
 app.listen(3000, () => {
   console.log("Server listening on port 3000");
