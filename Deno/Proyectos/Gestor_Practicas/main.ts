@@ -17,9 +17,6 @@ import { postClassroom } from "./resolvers/classrooms/postClassroom.ts";
 import { getClassroom } from "./resolvers/classrooms/getClassroom.ts";
 import { getSubject } from "./resolvers/subjects/getSubject.ts";
 import { getSubjects } from "./resolvers/subjects/getSubjects.ts";
-import https from "https";
-import fs from "fs";
-import path from "path";
 
 db.link([User,Booking,Classroom]);
 db.sync();

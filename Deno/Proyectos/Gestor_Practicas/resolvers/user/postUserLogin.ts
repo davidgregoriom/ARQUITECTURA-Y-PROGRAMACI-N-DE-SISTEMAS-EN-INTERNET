@@ -15,7 +15,7 @@ export const postUserLogin = async (req: Request<{}, {}, {email: string,password
 
         const userDB = await User.where({ email:email, password:password }).get();
         console.log(Object.keys(userDB));
-        if (!userDB===undefined || Object.keys(userDB).length>0) {
+        if (userDB==undefined || Object.keys(userDB).length>0) {
 
             const user:UserType = userDB.map((user:UserType) => ({ id: user.id, full_name: user.full_name, email: user.email, password: user.password, administrator: user.administrator }))[0];
             console.log(user);
