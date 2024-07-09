@@ -1,13 +1,9 @@
 // @deno-types="npm:@types/express@4.17.15"
 import {  Request, Response} from "npm:express@4.18.2";
-import { Subject } from "../../models.ts";
+import { Subject,Booking } from "../../models.ts"
 import { SubjectType } from "../../types.ts";
 
-type Response_JSON ={
-
-}
-
-export const getSubject = async (req: Request<{id_subject:number}, {},{}>, res: Response<SubjectType | { error: unknown }>) => {
+export const getSSP = async (req: Request<{id_subject:number}, {},{}>, res: Response<SubjectType | { error: unknown }>) => {
     try {
         const {id_subject}= req.params;
         if(!id_subject){

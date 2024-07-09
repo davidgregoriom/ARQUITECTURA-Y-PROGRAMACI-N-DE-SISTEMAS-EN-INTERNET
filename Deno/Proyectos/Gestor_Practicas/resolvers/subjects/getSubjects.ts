@@ -3,7 +3,7 @@ import {  Request, Response} from "npm:express@4.18.2";
 import { Subject } from "../../models.ts";
 import { SubjectType } from "../../types.ts";
 
-export const getSubjects = async (req: Request<{}, {},{}>, res: Response<SubjectType | { error: unknown }>) => {
+export const getSubjects = async (_req: Request<{}, {},{}>, res: Response<SubjectType | { error: unknown }>) => {
     try {
         const SubjectDB = await Subject.all();
         if (SubjectDB!==undefined || Object.keys(SubjectDB).length>0) {

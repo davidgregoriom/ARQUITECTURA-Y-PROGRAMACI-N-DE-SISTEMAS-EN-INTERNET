@@ -3,18 +3,14 @@ import {  Request, Response} from "npm:express@4.18.2";
 import { Subject } from "../../models.ts";
 import { SubjectType } from "../../types.ts";
 
-type Response_JSON ={
-
-}
-
-export const getSubject = async (req: Request<{id_subject:number}, {},{}>, res: Response<SubjectType | { error: unknown }>) => {
+export const getUserSubjects = async (req: Request<{id_user:number}, {},{}>, res: Response<SubjectType | { error: unknown }>) => {
     try {
-        const {id_subject}= req.params;
-        if(!id_subject){
+        const {id_user}= req.params;
+        if(!id_user){
             res.status(400).json({ error: "Missing fields" }).send();
             return;
         }
-        const SubjectDB = await Subject.find(id_subject);
+        const SubjectDB = await Subject.where({ id_user:id_user}).get;
         if (SubjectDB!==undefined || Object.keys(SubjectDB).length>0) {
             res.status(200).json({ SubjectDB:Subject }).send();
         } else {
